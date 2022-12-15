@@ -1,0 +1,21 @@
+<div class="w3-padding general">
+
+  <ng-container *ngIf="displayedEpisodes.length > 0">
+    <ng-container *ngFor="let item of displayedEpisodes">
+      <div>
+
+      <div class="d-inline p-2"> <img [src]="item.img" width="100px"/></div>
+      <div class="d-inline p-2 text-bg-dark">{{ item.numero }}</div>
+      <div class="d-inline p-2 text-bg-dark">{{ item.nom }}</div>
+      <div class="d-inline p-2 text-bg-dark">{{ item.anime }}</div>
+
+      </div>
+    </ng-container>
+</ng-container>
+
+<div><button class="w3-button w3-blue" (click)="pagePrecedente()">page precedente</button></div>
+<div><button class="w3-button w3-blue" (click)="pageSuivante()">page suivante</button></div>
+
+
+</div>
+
