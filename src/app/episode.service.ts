@@ -21,7 +21,7 @@ export class EpisodeService {
   getEpisodes(url : string)  : Observable<Episode[]>{ //pour obtenir tableau d episode
     return this.httpClient.get<any[]>(url).pipe(
         map((obj : any) =>{
-          let arr: any =[];
+          let arr: Array<Episode> = new Array<Episode>()
           let tab : any[]= obj["data"];
           tab.forEach(element => {
             let date : string = element.attributes.airdate;
@@ -43,6 +43,7 @@ export class EpisodeService {
                   titre : titre,
                   img : image,
                   urlAnime : url,
+                  typeAnime : ' ',
                   anime : ' ',
                   next : obj.links.next,
                   prev : obj.links.prev,
@@ -60,6 +61,7 @@ export class EpisodeService {
                   titre : titre,
                   img : image,
                   urlAnime : url,
+                  typeAnime : ' ',
                   anime : ' ',
                   next : obj.links.next,
                   prev : null,

@@ -8,8 +8,8 @@ export interface Episode {
   urlAnime : string,
   anime : string,
   typeAnime : string,
-  next : string,
-  prev : string,
+  next : string | null,
+  prev : string | null,
   lastPage : string,
   nbEpisodeTotal : number
 

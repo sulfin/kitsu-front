@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Episode } from '../episode';
 
 @Component({
   selector: 'app-display-episode',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DisplayEpisodeComponent implements OnInit {
 
-  @Input() episode: any;
+  @Input() episode!: Episode;
 
   constructor() { }
 
