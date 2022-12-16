@@ -7,6 +7,7 @@ export interface Episode {
   img : string,
   urlAnime : string,
   anime : string,
+  typeAnime : string,
   next : string,
   prev : string,
   lastPage : string,

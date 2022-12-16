@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, switchMap, take } from 'rxjs';
 import { Episode } from './episode';
+import { EpisodeAnime } from './episode-anime';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,6 @@ import { Episode } from './episode';
 export class EpisodeService {
 
   urlBase = 'https://kitsu.io/api/edge/episodes?sort=-airdate';
-
-
 
   constructor(private httpClient : HttpClient) { }
 
@@ -82,6 +81,7 @@ export class EpisodeService {
                   img : image,
                   urlAnime : url,
                   anime : ' ',
+                  typeAnime : ' ',
                   next : null,
                   prev : obj.links.prev,
                   lastPage : lastPage,
@@ -100,20 +100,28 @@ export class EpisodeService {
     )
   }
 
-  getnomAnime(url : string) :  Observable<string> {
+  getDataAnime(url : string) :  Observable<EpisodeAnime> {
 
     return this.httpClient.get<any>(url).pipe(
+
       map((obj: any) => {
 
-        let nom = obj["data"].attributes;
-        let nomAnime: string = nom.canonicalTitle;
-        return nomAnime;
+        let image : string = obj["data"].attributes.posterImage.original;
+        let nomAnime: string = obj["data"].attributes.canonicalTitle;
+        let type : string =  obj["data"].attributes.showType;
+
+        let arr : EpisodeAnime = {
+          img : image,
+          nomAnime : nomAnime,
+          type : type
+        };
+        return arr;
 
       })
     );
   }
 
-
+/*
   getImageAnime(url : string) :  Observable<string> {
 
     return this.httpClient.get<any>(url).pipe(
@@ -125,5 +133,5 @@ export class EpisodeService {
       })
     );
   }
-
+*/
 }

@@ -36,36 +36,24 @@ export class PageEpisodeComponent implements OnInit {
 
   }
 
-  recevoirNomAnime() {
+  recevoirDataAnime() {
+
+    this.lastPage = this.displayedEpisodes[this.displayedEpisodes.length-1].lastPage;
+
+    this.nbTotalEpisode = this.displayedEpisodes[this.displayedEpisodes.length-1].nbEpisodeTotal;
 
     for(let i=0; i< this.displayedEpisodes.length;i++){
 
-      this.lastPage = this.displayedEpisodes[i].lastPage;
-
-      this.nbTotalEpisode = this.displayedEpisodes[i].nbEpisodeTotal;
-
-      this.episodeService.getnomAnime(this.displayedEpisodes[i].urlAnime).subscribe(
+      this.episodeService.getDataAnime(this.displayedEpisodes[i].urlAnime).subscribe(
         (x)=> {
-          this.displayedEpisodes[i].anime = x
+          this.displayedEpisodes[i].anime = x.nomAnime;
+          this.displayedEpisodes[i].typeAnime = x.type;
+          if ( this.displayedEpisodes[i].img == null){
+            this.displayedEpisodes[i].img = x.img;
+          }
+
         }
       );
-
-    }
-  }
-
-  recevoirImageAnime() {
-
-    for(let i=0; i< this.displayedEpisodes.length;i++){
-
-      if ( this.displayedEpisodes[i].img == null){
-
-        this.episodeService.getImageAnime(this.displayedEpisodes[i].urlAnime).subscribe(
-          (x)=> {
-            this.displayedEpisodes[i].img = x
-          }
-        );
-      }
-
 
     }
   }
@@ -77,9 +65,8 @@ export class PageEpisodeComponent implements OnInit {
       this.episodeService.getEpisodes(this.url).subscribe(
         (x) =>{
           this.displayedEpisodes = x;
-          this.recevoirNomAnime();
+          this.recevoirDataAnime();
           this.gestionBouton();
-          this.recevoirImageAnime();
 
         }
       );
@@ -99,9 +86,8 @@ export class PageEpisodeComponent implements OnInit {
       this.episodeService.getEpisodes(this.url).subscribe(
         (x) =>{
           this.displayedEpisodes = x;
-          this.recevoirNomAnime();
+          this.recevoirDataAnime();
           this.gestionBouton();
-          this.recevoirImageAnime();
 
         }
       );
@@ -121,9 +107,8 @@ export class PageEpisodeComponent implements OnInit {
       this.episodeService.getEpisodes(this.url).subscribe(
         (x) =>{
           this.displayedEpisodes = x;
-          this.recevoirNomAnime();
+          this.recevoirDataAnime();
           this.gestionBouton();
-          this.recevoirImageAnime();
 
         }
       );
@@ -145,9 +130,8 @@ export class PageEpisodeComponent implements OnInit {
       this.episodeService.getEpisodes(this.url).subscribe(
         (x) =>{
           this.displayedEpisodes = x;
-          this.recevoirNomAnime();
+          this.recevoirDataAnime();
           this.gestionBouton();
-          this.recevoirImageAnime();
 
         }
       );
@@ -158,6 +142,8 @@ export class PageEpisodeComponent implements OnInit {
   }
 
   gestionBouton(){
+
+
     if (this.displayedEpisodes[this.displayedEpisodes.length -1].next == null){ this.desactiverBoutonSuiv = "disabled";}
     if (this.displayedEpisodes[this.displayedEpisodes.length -1].next != null){ this.desactiverBoutonSuiv = " ";}
     if (this.displayedEpisodes[this.displayedEpisodes.length -1].prev == null){this.desactiverBoutonPrec = "disabled";}
@@ -166,3 +152,4 @@ export class PageEpisodeComponent implements OnInit {
 
 
 }
+
