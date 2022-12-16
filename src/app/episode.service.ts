@@ -20,8 +20,6 @@ export class EpisodeService {
 
   getEpisodes(url : string)  : Observable<Episode[]>{
     return this.httpClient.get<any[]>(url).pipe(
-       // map( (obj : any) => obj["data"] ),
-       // map(( tab : any[] ) => {
         map((obj : any) =>{
           let arr: any =[];
           let tab : any[]= obj["data"];
@@ -121,17 +119,4 @@ export class EpisodeService {
     );
   }
 
-/*
-  getImageAnime(url : string) :  Observable<string> {
-
-    return this.httpClient.get<any>(url).pipe(
-      map((obj: any) => {
-
-        let image : string= obj["data"].attributes.posterImage.original;
-        return image;
-
-      })
-    );
-  }
-*/
 }
