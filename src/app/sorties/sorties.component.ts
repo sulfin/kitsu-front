@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, observable } from 'rxjs';
 import { EpisodeService } from '../episode.service';
-
+import { Episode } from '../episode';
 @Component({
   selector: 'app-sorties',
   templateUrl: './sorties.component.html',
@@ -9,31 +9,39 @@ import { EpisodeService } from '../episode.service';
 })
 export class SortiesComponent implements OnInit {
 
-  displayedEpisodes: Array<any> = new Array<any>()
+  displayedEpisodes: Array<Episode> = new Array<Episode>()
 
   nom : string = '';
 
   url :string = ' ';
+
+  numeroPage : number =0;
+  nbTotalEpisode : number =0;
+
+  firstPage : string = ' ';
+  lastPage : string = ' ';
+
+  desactiverBoutonSuiv : string = "disabled";
+  desactiverBoutonPrec : string = "disabled";
+
+
 
   constructor(private episodeService: EpisodeService) {
   }
 
   ngOnInit(): void {
 
-    this.url = this.episodeService.getUrlBase();
-    this.episodeService.getEpisodes(this.url).subscribe(
-      (x) =>{
-        this.displayedEpisodes = x;
-        this.recevoirNomAnime();
-
-      }
-    );
+    this.getFirstPage();
 
   }
 
   recevoirNomAnime() {
 
     for(let i=0; i< this.displayedEpisodes.length;i++){
+
+      this.lastPage = this.displayedEpisodes[i].lastPage;
+
+      this.nbTotalEpisode = this.displayedEpisodes[i].nbEpisodeTotal;
 
       this.episodeService.getnomAnime(this.displayedEpisodes[i].urlAnime).subscribe(
         (x)=> {
@@ -42,6 +50,63 @@ export class SortiesComponent implements OnInit {
       );
 
     }
+  }
+
+  recevoirImageAnime() {
+
+    for(let i=0; i< this.displayedEpisodes.length;i++){
+
+      if ( this.displayedEpisodes[i].img == null){
+
+        this.episodeService.getImageAnime(this.displayedEpisodes[i].urlAnime).subscribe(
+          (x)=> {
+            this.displayedEpisodes[i].img = x
+          }
+        );
+      }
+
+
+    }
+  }
+
+  getFirstPage(){
+
+    this.url = this.episodeService.getUrlBase();
+
+      this.episodeService.getEpisodes(this.url).subscribe(
+        (x) =>{
+          this.displayedEpisodes = x;
+          this.recevoirNomAnime();
+          this.gestionBouton();
+          this.recevoirImageAnime();
+
+        }
+      );
+
+      this.firstPage = this.url;
+
+      this.numeroPage=0;
+
+  }
+
+  getLastPage(){
+
+    this.url = this.lastPage;
+
+    console.log("Last page "+ this.url);
+
+      this.episodeService.getEpisodes(this.url).subscribe(
+        (x) =>{
+          this.displayedEpisodes = x;
+          this.recevoirNomAnime();
+          this.gestionBouton();
+          this.recevoirImageAnime();
+
+        }
+      );
+
+      this.numeroPage = Math.floor(this.nbTotalEpisode/10);
+
   }
 
   pageSuivante(){
@@ -56,9 +121,13 @@ export class SortiesComponent implements OnInit {
         (x) =>{
           this.displayedEpisodes = x;
           this.recevoirNomAnime();
+          this.gestionBouton();
+          this.recevoirImageAnime();
 
         }
       );
+
+      this.numeroPage++;
 
     }
 
@@ -76,13 +145,22 @@ export class SortiesComponent implements OnInit {
         (x) =>{
           this.displayedEpisodes = x;
           this.recevoirNomAnime();
+          this.gestionBouton();
+          this.recevoirImageAnime();
 
         }
       );
 
+      this.numeroPage--;
+
     }
+  }
 
-
+  gestionBouton(){
+    if (this.displayedEpisodes[this.displayedEpisodes.length -1].next == null){ this.desactiverBoutonSuiv = "disabled";}
+    if (this.displayedEpisodes[this.displayedEpisodes.length -1].next != null){ this.desactiverBoutonSuiv = " ";}
+    if (this.displayedEpisodes[this.displayedEpisodes.length -1].prev == null){this.desactiverBoutonPrec = "disabled";}
+    if (this.displayedEpisodes[this.displayedEpisodes.length -1].prev != null){ this.desactiverBoutonPrec = " ";}
   }
 
 

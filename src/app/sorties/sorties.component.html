@@ -1,21 +1,41 @@
-<div class="w3-padding general">
 
-  <ng-container *ngIf="displayedEpisodes.length > 0">
-    <ng-container *ngFor="let item of displayedEpisodes">
-      <div>
-
-      <div class="d-inline p-2"> <img [src]="item.img" width="100px"/></div>
-      <div class="d-inline p-2 text-bg-dark">{{ item.numero }}</div>
-      <div class="d-inline p-2 text-bg-dark">{{ item.nom }}</div>
-      <div class="d-inline p-2 text-bg-dark">{{ item.anime }}</div>
-
-      </div>
-    </ng-container>
-</ng-container>
-
-<div><button class="w3-button w3-blue" (click)="pagePrecedente()">page precedente</button></div>
-<div><button class="w3-button w3-blue" (click)="pageSuivante()">page suivante</button></div>
-
-
+ <div class= "d-flex align-items-center text-center justify-content-center mb-1" style="height: 62px">
+  <div class="flex-shrink-0" style="height : 60px" style="width:100px" > </div>
+  <div class="col-1 bg-secondary h-100 p-3 border border-light mb-0 ">Sortie</div>
+  <div class="col-1 bg-secondary h-100 p-3 border border-light mb-0 ">Duree</div>
+  <div class="col-1 bg-secondary h-100 p-3 border border-light mb-0 ">Episode</div>
+  <div class="col-1 bg-secondary h-100 p-3 border border-light mb-0 ">Saison</div>
+  <div class="col-3 bg-secondary h-100 p-3 border border-light mb-0 ">nom de l'episode</div>
+  <div class="col-3 bg-secondary rounded-end border border-light h-100 p-3 mb-0">Anime</div>
 </div>
+
+
+    <ng-container *ngIf="displayedEpisodes.length > 0">
+      <ng-container *ngFor="let item of displayedEpisodes">
+
+        <div class= "d-flex align-items-center text-center justify-content-center mb-1" style="height: 62px">
+          <div class="flex-shrink-0"> <img [src]=item.img width="100px" height="60px" class="rounded-start"> </div>
+          <div class="col-1 bg-secondary h-100 p-3 border border-light mb-0  " style = "font-size: 80%;">{{item.dateSortie}}</div>
+          <div class="col-1 bg-secondary h-100 p-3 border border-light mb-0  " style = "font-size: 80%;">{{item.duree}}</div>
+          <div class="col-1 bg-secondary h-100 p-3 border border-light mb-0  " style = "font-size: 80%;">{{item.numeroEpisode}}</div>
+          <div class="col-1 bg-secondary h-100 p-3 border border-light mb-0  " style = "font-size: 80%;">{{item.saison}}</div>
+          <div class="col-3 bg-secondary h-100 p-3 border border-light mb-0  " style = "font-size: 80%;">{{item.titre}}</div>
+          <div class="col-3 bg-secondary rounded-end border border-light h-100 p-3 mb-0" style = "font-size: 80%;">{{item.anime}}</div>
+        </div>
+
+      </ng-container>
+    </ng-container>
+
+    <nav>
+      <ul class="pagination d-flex justify-content-center">
+        <li class="page-item "><a class="page-link" (click)="getFirstPage()">First Page</a></li>
+        <li class="page-item {{desactiverBoutonPrec}}"><a class="page-link"  (click)="pagePrecedente()">&lsaquo;</a></li>
+        <li class="page-item"><a class="page-link">{{numeroPage}}</a></li>
+        <li class="page-item {{desactiverBoutonSuiv}} "><a class="page-link" (click)="pageSuivante()">&rsaquo;</a></li>
+        <li class="page-item "><a class="page-link" (click)="getLastPage()">Last Page</a></li>
+      </ul>
+    </nav>
+
+
+
 
