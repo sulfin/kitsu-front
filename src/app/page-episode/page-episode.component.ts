@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, observable } from 'rxjs';
 import { EpisodeService } from '../episode.service';
 import { Episode } from '../episode';
 
