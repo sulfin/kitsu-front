@@ -11,17 +11,15 @@ export class PageEpisodeComponent implements OnInit {
 
   displayedEpisodes: Array<Episode> = new Array<Episode>()
 
-  nom : string = '';
-
   url :string = ' ';
 
   numeroPage : number =0;
   nbTotalEpisode : number =0;
 
-  firstPage : string = ' ';
-  lastPage : string = ' ';
+  firstPage : string = ' '; //pour enregistrer url de la 1ere page
+  lastPage : string = ' '; //pour enregistrer url de la derniere page
 
-  desactiverBoutonSuiv : string = "disabled";
+  desactiverBoutonSuiv : string = "disabled"; //ira dans la classe bootstrap
   desactiverBoutonPrec : string = "disabled";
 
 
@@ -31,11 +29,11 @@ export class PageEpisodeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getFirstPage();
+    this.getFirstPage(); //recupere la 1ere page
 
   }
 
-  recevoirDataAnime() {
+  recevoirDataAnime() {  //pour recevoir les donnees qui proviennent de l'anime : son nom et image si l episode n en a pas
 
     this.lastPage = this.displayedEpisodes[this.displayedEpisodes.length-1].lastPage;
 
@@ -57,7 +55,7 @@ export class PageEpisodeComponent implements OnInit {
     }
   }
 
-  getFirstPage(){
+  getFirstPage(){ //methode pour obtenir la 1ere page
 
     this.url = this.episodeService.getUrlBase();
 
