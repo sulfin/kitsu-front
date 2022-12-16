@@ -1,0 +1,10 @@
+<div class="card h-100">
+  <a class="d-flex flex-column text-black text-decoration-none h-100" [routerLink]="'/episode/'+episode.id">
+    <img class="card-img-top" [src]="episode.attributes.thumbnail?.original||''"
+         [alt]="episode.attributes.canonicalTitle">
+    <div class="card-body">
+      <h5 class="card-title">Nom anime</h5>
+      <span class="card-text">{{episode.attributes.canonicalTitle}}</span>
+    </div>
+  </a>
+</div>

@@ -1,0 +1,5 @@
+app-carousel-item{
+  --card-number: 5;
+  --space-between: 10px;
+  width: calc(100% / var(--card-number) - 2 * var(--space-between));
+}
