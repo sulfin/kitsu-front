@@ -4,12 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SortiesComponent } from './sorties/sorties.component';
+import { PageEpisodeComponent } from './page-episode/page-episode.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SortiesComponent
+    PageEpisodeComponent
   ],
   imports: [
     BrowserModule,

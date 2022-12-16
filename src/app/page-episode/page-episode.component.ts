@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, observable } from 'rxjs';
 import { EpisodeService } from '../episode.service';
 import { Episode } from '../episode';
+
 @Component({
-  selector: 'app-sorties',
-  templateUrl: './sorties.component.html',
-  styleUrls: ['./sorties.component.css']
+  selector: 'app-page-episode',
+  templateUrl: './page-episode.component.html',
+  styleUrls: ['./page-episode.component.css']
 })
-export class SortiesComponent implements OnInit {
+export class PageEpisodeComponent implements OnInit {
 
   displayedEpisodes: Array<Episode> = new Array<Episode>()
 
@@ -165,6 +166,3 @@ export class SortiesComponent implements OnInit {
 
 
 }
-
-
-
