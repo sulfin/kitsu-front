@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EpisodeService } from '../episode.service';
-import { Episode } from '../episode';
+import { EpisodeAffiche } from '../episode-affiche';
+import { RecupererDataEpisode } from '../recuperer-data-episode';
+import { LinksEpisode } from '../links-episode';
 
 @Component({
   selector: 'app-page-episode',
@@ -9,15 +11,13 @@ import { Episode } from '../episode';
 })
 export class PageEpisodeComponent implements OnInit {
 
-  displayedEpisodes: Array<Episode> = new Array<Episode>()
+  displayedEpisodes: Array<EpisodeAffiche> = new Array<EpisodeAffiche>();
 
-  url :string = ' ';
+  dataEpisode! : RecupererDataEpisode;
+
+  links! : LinksEpisode;
 
   numeroPage : number =0;
-  nbTotalEpisode : number =0;
-
-  firstPage : string = ' '; //pour enregistrer url de la 1ere page
-  lastPage : string = ' '; //pour enregistrer url de la derniere page
 
   desactiverBoutonSuiv : string = "disabled"; //ira dans la classe bootstrap
   desactiverBoutonPrec : string = "disabled";
@@ -33,42 +33,53 @@ export class PageEpisodeComponent implements OnInit {
 
   }
 
-  recevoirDataAnime() {  //pour recevoir les donnees qui proviennent de l'anime : son nom et image si l episode n en a pas
+  creerEpisodeAffiche(){
 
-    this.lastPage = this.displayedEpisodes[this.displayedEpisodes.length-1].lastPage;
+    this.displayedEpisodes = new Array<EpisodeAffiche>(); //creer nouveau tableau
 
-    this.nbTotalEpisode = this.displayedEpisodes[this.displayedEpisodes.length-1].nbEpisodeTotal;
+    this.links = this.dataEpisode!.links; //on recupere les liens des pages suivantes
 
-    for(let i=0; i< this.displayedEpisodes.length;i++){
+    let nomAnime = ' ';
+    let type = ' ';
+    let image : string| null = ' ';
 
-      this.episodeService.getDataAnime(this.displayedEpisodes[i].urlAnime).subscribe(
-        (x)=> {
-          this.displayedEpisodes[i].anime = x.nomAnime;
-          this.displayedEpisodes[i].typeAnime = x.type;
-          if ( this.displayedEpisodes[i].img == null){
-            this.displayedEpisodes[i].img = x.img;
-          }
+    for(let i=0; i< this.dataEpisode.tableauEpisodeRecupere.length; i++){
+
+      for(let j=0; j<this.dataEpisode.tableauIncluded.length; j++ ){
+
+        if (this.dataEpisode.tableauIncluded[j].id == this.dataEpisode.tableauEpisodeRecupere[i].idAnime ){  //on a trouve l anime qui correspond a l episode
+          nomAnime = this.dataEpisode.tableauIncluded[j].nom;
+          type = this.dataEpisode.tableauIncluded[j].type;
+          image = this.dataEpisode.tableauEpisodeRecupere[i].image?  this.dataEpisode.tableauEpisodeRecupere[i].image : this.dataEpisode.tableauIncluded[j].image;
 
         }
-      );
+      }
 
+      this.displayedEpisodes.push({
+        dateSortie : this.dataEpisode.tableauEpisodeRecupere[i].dateSortie,
+        duree : this.dataEpisode.tableauEpisodeRecupere[i].duree,
+        numeroEpisode : this.dataEpisode.tableauEpisodeRecupere[i].numeroEpisode,
+        numeroSaison : this.dataEpisode.tableauEpisodeRecupere[i].numeroSaison,
+        nom : this.dataEpisode.tableauEpisodeRecupere[i].nom,
+        nomAnime : nomAnime,
+        image : image,
+        type : type
+      })
     }
+
   }
+
 
   getFirstPage(){ //methode pour obtenir la 1ere page
 
-    this.url = this.episodeService.getUrlBase();
-
-      this.episodeService.getEpisodes(this.url).subscribe(
+      this.episodeService.getDataEpisode(this.episodeService.getUrlBase()).subscribe(
         (x) =>{
-          this.displayedEpisodes = x;
-          this.recevoirDataAnime();
+          this.dataEpisode = x;
+          this.creerEpisodeAffiche();
           this.gestionBouton();
 
         }
       );
-
-      this.firstPage = this.url;
 
       this.numeroPage=0;
 
@@ -76,35 +87,27 @@ export class PageEpisodeComponent implements OnInit {
 
   getLastPage(){
 
-    this.url = this.lastPage;
-
-    console.log("Last page "+ this.url);
-
-      this.episodeService.getEpisodes(this.url).subscribe(
+      this.episodeService.getDataEpisode(this.links.last).subscribe(
         (x) =>{
-          this.displayedEpisodes = x;
-          this.recevoirDataAnime();
+          this.dataEpisode = x;
+          this.creerEpisodeAffiche();
           this.gestionBouton();
 
         }
       );
 
-      this.numeroPage = Math.floor(this.nbTotalEpisode/10);
+      this.numeroPage = Math.floor(this.links.nbTotalEpisode/10);
 
   }
 
   pageSuivante(){
 
-    console.log("Suivante : " +this.displayedEpisodes[0].next + "\nprec : " + this.displayedEpisodes[0].prev )
+    if ( this.links.next != null){  //la page suivante existe
 
-    if ( this.displayedEpisodes[0].next != null){  //la page suivante existe
-
-      this.url = this.displayedEpisodes[0].next;
-
-      this.episodeService.getEpisodes(this.url).subscribe(
+      this.episodeService.getDataEpisode(this.links.next).subscribe(
         (x) =>{
-          this.displayedEpisodes = x;
-          this.recevoirDataAnime();
+          this.dataEpisode = x;
+          this.creerEpisodeAffiche();
           this.gestionBouton();
 
         }
@@ -118,16 +121,12 @@ export class PageEpisodeComponent implements OnInit {
 
   pagePrecedente(){
 
-    if ( this.displayedEpisodes[0].prev != null){  //la page precedente existe
+    if (  this.links.prev != null){  //la page precedente existe
 
-      console.log("url page suivante : " + this.displayedEpisodes[this.displayedEpisodes.length -1].next);
-
-      this.url = this.displayedEpisodes[0].prev;
-
-      this.episodeService.getEpisodes(this.url).subscribe(
+      this.episodeService.getDataEpisode(this.links.prev).subscribe(
         (x) =>{
-          this.displayedEpisodes = x;
-          this.recevoirDataAnime();
+          this.dataEpisode = x;
+          this.creerEpisodeAffiche();
           this.gestionBouton();
 
         }
@@ -141,10 +140,10 @@ export class PageEpisodeComponent implements OnInit {
   gestionBouton(){
 
 
-    if (this.displayedEpisodes[this.displayedEpisodes.length -1].next == null){ this.desactiverBoutonSuiv = "disabled";}
-    if (this.displayedEpisodes[this.displayedEpisodes.length -1].next != null){ this.desactiverBoutonSuiv = " ";}
-    if (this.displayedEpisodes[this.displayedEpisodes.length -1].prev == null){this.desactiverBoutonPrec = "disabled";}
-    if (this.displayedEpisodes[this.displayedEpisodes.length -1].prev != null){ this.desactiverBoutonPrec = " ";}
+    if ( this.links.next == null){ this.desactiverBoutonSuiv = "disabled";}
+    if ( this.links.next != null){ this.desactiverBoutonSuiv = " ";}
+    if ( this.links.prev == null){this.desactiverBoutonPrec = "disabled";}
+    if ( this.links.prev != null){ this.desactiverBoutonPrec = " ";}
   }
 
 

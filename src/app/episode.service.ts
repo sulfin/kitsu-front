@@ -1,122 +1,83 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable} from 'rxjs';
-import { Episode } from './episode';
-import { EpisodeAnime } from './episode-anime';
+import { EpisodeRecupere } from './episode-recupere';
+import { IncludedEpisode } from './included-episode';
+import { LinksEpisode } from './links-episode';
+import { RecupererDataEpisode } from './recuperer-data-episode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EpisodeService {
 
-  urlBase = 'https://kitsu.io/api/edge/episodes?sort=-airdate';
+  url = 'https://kitsu.io/api/edge/episodes?sort=-airdate&include=media';
 
   constructor(private httpClient : HttpClient) { }
 
   getUrlBase(){
-    return this.urlBase;
+    return this.url;
   }
 
 
-  getEpisodes(url : string)  : Observable<Episode[]>{ //pour obtenir tableau d episode
+  getDataEpisode(url : string) : Observable<RecupererDataEpisode> {
+
     return this.httpClient.get<any[]>(url).pipe(
-        map((obj : any) =>{
-          let arr: Array<Episode> = new Array<Episode>()
-          let tab : any[]= obj["data"];
-          tab.forEach(element => {
-            let date : string = element.attributes.airdate;
-            let duree : number = element.attributes.length;
-            let numeroEpisode : number = element.attributes.number;
-            let saison : number = element.attributes.seasonNumber;
-            let titre : string = element.attributes.canonicalTitle;
-            let image =  element.attributes.thumbnail? element.attributes.thumbnail.original : null;
-            let url : string = element.relationships.media.links.related
-            let lastPage : string = obj.links.last;
-            let nbEpisodeTotal : number = obj.meta.count;
+      map((obj : any) =>{
+        let episodeRecupere: RecupererDataEpisode;
+        let tabEpisodeRecupere :  Array<EpisodeRecupere> = new Array<EpisodeRecupere>();
+        let tabIncluded :  Array<IncludedEpisode> = new Array<IncludedEpisode>();
+        let links: LinksEpisode;
 
-              if( obj.links.next != undefined && obj.links.prev != undefined  ){  //si les pages suivante et precedente existent
-                arr.push({
-                  duree : duree,
-                  numeroEpisode : numeroEpisode,
-                  saison : saison,
-                  dateSortie : date,
-                  titre : titre,
-                  img : image,
-                  urlAnime : url,
-                  typeAnime : ' ',
-                  anime : ' ',
-                  next : obj.links.next,
-                  prev : obj.links.prev,
-                  lastPage : lastPage,
-                  nbEpisodeTotal : nbEpisodeTotal
-                })
-              }
+        let tabDataEpisode : any[]= obj["data"];
+        let tabDataIncluded : any[] = obj["included"]
 
-              else if (obj.links.next != undefined){ // Si il n y a que next qui existe
-                arr.push({
-                  duree : duree,
-                  numeroEpisode : numeroEpisode,
-                  saison : saison,
-                  dateSortie : date,
-                  titre : titre,
-                  img : image,
-                  urlAnime : url,
-                  typeAnime : ' ',
-                  anime : ' ',
-                  next : obj.links.next,
-                  prev : null,
-                  lastPage : lastPage,
-                  nbEpisodeTotal : nbEpisodeTotal
-                })
+        tabDataEpisode.forEach(element => {  //On va parcourir tout le tableau data pour pusher dans notre tableau de EpisodeRecupere
 
-              }
+          tabEpisodeRecupere.push({
 
-              else{  //il n y a que prev qui existe
-                arr.push({
-                  duree : duree,
-                  numeroEpisode : numeroEpisode,
-                  saison : saison,
-                  dateSortie : date,
-                  titre : titre,
-                  img : image,
-                  urlAnime : url,
-                  anime : ' ',
-                  typeAnime : ' ',
-                  next : null,
-                  prev : obj.links.prev,
-                  lastPage : lastPage,
-                  nbEpisodeTotal : nbEpisodeTotal
-                })
+            idAnime : element.relationships.media.data.id,
+            dateSortie : element.attributes.airdate,
+            duree : element.attributes.length,
+            numeroEpisode : element.attributes.number,
+            numeroSaison : element.attributes.seasonNumber,
+            nom : element.attributes.canonicalTitle,
+            image : element.attributes.thumbnail? element.attributes.thumbnail.original : null //il peut ne pas y avoir d image pour l episode
+          })
+        });
 
+        tabDataIncluded.forEach(element => {
 
-              }
-          });
+          tabIncluded.push({
 
-          return arr;
+            id : element.id,
+            nom : element.attributes.canonicalTitle,
+            type : element.attributes.subtype,
+            image : element.attributes.posterImage.original
+          })
+        });
+
+        links = {
+          first : obj.links.first,
+          prev : obj.links.prev? obj.links.prev : null,
+          next : obj.links.next? obj.links.next : null,
+          last : obj.links.last,
+          nbTotalEpisode : obj.meta.count
         }
-      )
+
+        episodeRecupere = {
+
+          tableauEpisodeRecupere : tabEpisodeRecupere,
+          tableauIncluded : tabIncluded,
+          links : links
+        }
+
+        return episodeRecupere;
+
+      }
     )
-  }
+  )
 
-  getDataAnime(url : string) :  Observable<EpisodeAnime> { //obtenir les donnees sur l anime
-
-    return this.httpClient.get<any>(url).pipe(
-
-      map((obj: any) => {
-
-        let image : string = obj["data"].attributes.posterImage.original;
-        let nomAnime: string = obj["data"].attributes.canonicalTitle;
-        let type : string =  obj["data"].attributes.subtype;
-
-        let arr : EpisodeAnime = {
-          img : image,
-          nomAnime : nomAnime,
-          type : type
-        };
-        return arr;
-
-      })
-    );
   }
 
 }
