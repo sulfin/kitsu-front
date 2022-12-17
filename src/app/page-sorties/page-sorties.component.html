@@ -2,7 +2,7 @@
     <ng-container *ngIf="displayedEpisodes.length > 0">
       <ng-container *ngFor="let item of displayedEpisodes">
 
-        <display [episode]="item"></app-display-episode>
+        <app-display-episode [episode]="item"></app-display-episode>
       </ng-container>
     </ng-container>
 

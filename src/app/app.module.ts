@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PageEpisodeComponent } from './page-episode/page-episode.component';
 import { DisplayEpisodeComponent } from './display-episode/display-episode.component';
 import { NavBarreComponent } from './nav-barre/nav-barre.component';
 import { PageAccueilComponent } from './page-accueil/page-accueil.component';
@@ -18,7 +17,6 @@ import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
-    PageEpisodeComponent,
     DisplayEpisodeComponent,
     NavBarreComponent,
     PageAccueilComponent,
