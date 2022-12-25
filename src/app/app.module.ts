@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DisplayEpisodeComponent } from './display-episode/display-episode.component';
 import { NavBarreComponent } from './nav-barre/nav-barre.component';
 import { PageAccueilComponent } from './page-accueil/page-accueil.component';
 import { PageSortiesComponent } from './page-sorties/page-sorties.component';
@@ -17,6 +19,7 @@ import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 @NgModule({
   declarations: [
     AppComponent,
+    DisplayEpisodeComponent,
     NavBarreComponent,
     PageAccueilComponent,
     PageSortiesComponent,
@@ -31,7 +34,8 @@ import { CarouselItemComponent } from './carousel-item/carousel-item.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
