@@ -15,6 +15,9 @@ import { PageAboutComponent } from './page-about/page-about.component';
 import { FooterComponent } from './footer/footer.component';
 import { CarouselAccueilComponent } from './carousel-accueil/carousel-accueil.component';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
+import { MenuDeroulantsComponent } from './menu-deroulants/menu-deroulants.component';
+import { AnimeResumeComponent } from './anime-resume/anime-resume.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -30,13 +33,17 @@ import { CarouselItemComponent } from './carousel-item/carousel-item.component';
     FooterComponent,
     AppComponent,
     CarouselAccueilComponent,
-    CarouselItemComponent
+    CarouselItemComponent,
+    FooterComponent,
+    MenuDeroulantsComponent,
+    AnimeResumeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,18 @@
+
+<form [formGroup]="SaisonAnneeForm">
+  <select formControlName="annee_val" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+
+    <option *ngFor="let annee of DisplayAnnee" [ngValue]="annee" >{{annee}}</option>
+
+  </select>
+
+  <select formControlName="saison" class="form-select form-select-lg" aria-label=".form-select-lg example">
+
+    <option selected [ngValue]="'winter'">hiver</option>
+    <option [ngValue]="'spring'">printemps</option>
+    <option [ngValue]="'summer'">été</option>
+    <option [ngValue]="'fall'">automne</option>
+  </select>
+</form>
+
+<!--  formControlName="annee_val"   formControlName="saison"   -->
