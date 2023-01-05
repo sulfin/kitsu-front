@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Observable} from "rxjs";
+import {ItemAccueil} from "../item-accueil";
 
 @Component({
   selector: 'app-carousel-accueil',
@@ -9,9 +11,11 @@ export class CarouselAccueilComponent implements OnInit {
 
   @Input() name = ''
   @Input() more_url = '#'
-  @Input() episodes: any[] = []
+  @Input() episodes_source!: Observable<ItemAccueil[]>
 
-  episodes_cur: any[] = []
+  episodes: ItemAccueil[] = []
+
+  episodes_cur: ItemAccueil[] = []
 
   start_index = 0
   nb_episode = 5
@@ -22,6 +26,13 @@ export class CarouselAccueilComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    this.episodes_source.subscribe(data => {
+      this.episodes = data
+      this.change_cur()
+    })
+
+    console.log(this.episodes)
     this.rbutton_disable = true
     this.lbutton_disable = true
     this.start_index = 0

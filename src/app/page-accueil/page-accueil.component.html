@@ -1,1 +1,4 @@
-<p>page-accueil works!</p>
+<div class="container my-5">
+  <app-carousel-accueil [name]="'Derniers épisodes'" [more_url]="'/sorties'" [episodes_source]="last_episode_source"></app-carousel-accueil>
+  <app-carousel-accueil [name]="'Animés populaires'" [more_url]="'/populaire'" [episodes_source]="trending_anime_source"></app-carousel-accueil>
+</div>

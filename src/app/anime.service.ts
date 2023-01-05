@@ -8,19 +8,26 @@ import {Anime} from "./anime";
 })
 export class AnimeService {
 
-  baseURL = "https://kitsu.io/api/edge/anime/"
+  animeURL = "https://kitsu.io/api/edge/anime/"
+  trendingURL = "https://kitsu.io/api/edge/trending/anime"
 
 
   constructor(private httpClient: HttpClient) {
   }
 
-  getAnimes(option: string): Observable<any> {
-    return this.httpClient.get(this.baseURL + option)
+  getAnimes(url: string, option: string): Observable<any> {
+    return this.httpClient.get(url + option)
   }
 
   getAnimeSaison(saison: string, annee: string): Observable<Anime[]> {
-    return this.getAnimes(`?filter[season]=${saison}&filter[seasonYear]=${annee}`).pipe(
+    return this.getAnimes(this.animeURL, `?filter[season]=${saison}&filter[seasonYear]=${annee}`).pipe(
       map<any, Anime[]>((data) => { return data.map((val: any) => this.anyToAnime(val))})
+    )
+  }
+
+  getAnimePopulaire(): Observable<Anime[]> {
+    return this.getAnimes(this.trendingURL, "").pipe(
+      map<any, Anime[]>((data) => { return data.data.map((val: any) => this.anyToAnime(val))})
     )
   }
 
