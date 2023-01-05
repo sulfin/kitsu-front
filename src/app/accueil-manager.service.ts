@@ -3,13 +3,18 @@ import {map, Observable} from "rxjs";
 import {EpisodeAccueil} from "./episode-accueil";
 import {EpisodeService} from "./episode.service";
 import {ItemAccueil} from "./item-accueil";
+import {AnimeService} from "./anime.service";
+import {Anime} from "./anime";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccueilManagerService {
 
-  constructor(private episodeService: EpisodeService) { }
+  constructor(
+    private episodeService: EpisodeService,
+    private animeService: AnimeService
+  ) { }
 
   // Get the 10 last episode in the ItemAccueil format
   getLastEpisodes(): Observable<ItemAccueil[]>{
@@ -39,5 +44,18 @@ export class AccueilManagerService {
           }
         })
       }))
+  }
+
+  getTrending(): Observable<ItemAccueil[]>{
+    return this.animeService.getAnimePopulaire().pipe(
+      map(animes => animes.map((e: Anime)=>{
+        return {
+          image: e.posterImage||"",
+          lien: `/anime/${e.id}`,
+          titre: e.canonicalTitle,
+          sous_titre: e.description
+        }
+      }))
+    )
   }
 }
