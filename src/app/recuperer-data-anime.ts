@@ -1,9 +1,8 @@
 import { Anime } from "./anime";
-import { EpisodeRecupere } from "./episode-recupere";
-import { LinksEpisode } from "./links-episode";
+import { Links } from "./links";
 
 export interface RecupererDataAnime {
 
   tableauAnimeRecupere : Anime[],
-  links : LinksEpisode
+  links : Links
 }

@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {Anime} from "./anime";
-import { LinksEpisode } from './links-episode';
 import { RecupererDataAnime } from './recuperer-data-anime';
+import { Links } from './links';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,13 @@ export class AnimeService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAnimes(url: string, option: string): Observable<RecupererDataAnime> {
+  getFullAnimes(url: string, option: string): Observable<RecupererDataAnime> {
     return this.httpClient.get<any[]>(url + option).pipe(
       map((obj : any) =>{
 
         let AnimeRecupere : RecupererDataAnime;
         let tabAnimeRecupere :  Array<Anime> = new Array<Anime>();
-        let links: LinksEpisode;
+        let links: Links;
 
         let tabDataAnime : any[]= obj["data"];
 
@@ -54,6 +54,9 @@ export class AnimeService {
   )
   }
 
+  getAnimes(url: string, option: string): Observable<any> {
+    return this.httpClient.get(url + option)
+  }
 
   getAnimeSaison(saison: string, annee: string): Observable<Anime[]> {
     return this.getAnimes(this.animeURL, `?filter[season]=${saison}&filter[seasonYear]=${annee}`).pipe(

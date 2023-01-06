@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Anime } from '../anime';
 import { AnimeService } from '../anime.service';
-import { LinksEpisode } from '../links-episode';
+import { Links } from '../links';
 import { RecupererDataAnime } from '../recuperer-data-anime';
 
 @Component({
@@ -16,7 +16,7 @@ export class PageAnimeComponent implements OnInit {
 
   dataAnimeRecupere! : RecupererDataAnime;
 
-  links! : LinksEpisode;
+  links! : Links;
 
   numeroPage : number =0;
 
@@ -47,7 +47,7 @@ export class PageAnimeComponent implements OnInit {
 
   getFirstPage(option : string){ //methode pour obtenir la 1ere page
 
-    this.animeService.getAnimes(this.animeService.animeURL , option).subscribe(
+    this.animeService.getFullAnimes(this.animeService.animeURL , option).subscribe(
       (x) =>{
         this.dataAnimeRecupere = x;
         this.displayedAnime = x.tableauAnimeRecupere;
@@ -63,7 +63,7 @@ export class PageAnimeComponent implements OnInit {
 
   getLastPage(){
 
-    this.animeService.getAnimes(this.links.last, ' ').subscribe(
+    this.animeService.getFullAnimes(this.links.last, ' ').subscribe(
       (x) =>{
         this.dataAnimeRecupere = x;
         this.displayedAnime = x.tableauAnimeRecupere;
@@ -81,7 +81,7 @@ export class PageAnimeComponent implements OnInit {
 
   if ( this.links.next != null){  //la page suivante existe
 
-    this.animeService.getAnimes(this.links.next, ' ').subscribe(
+    this.animeService.getFullAnimes(this.links.next, ' ').subscribe(
       (x) =>{
         this.dataAnimeRecupere = x;
         this.displayedAnime = x.tableauAnimeRecupere;
@@ -101,7 +101,7 @@ export class PageAnimeComponent implements OnInit {
 
   if (  this.links.prev != null){  //la page precedente existe
 
-    this.animeService.getAnimes(this.links.prev, ' ').subscribe(
+    this.animeService.getFullAnimes(this.links.prev, ' ').subscribe(
       (x) =>{
         this.dataAnimeRecupere = x;
         this.displayedAnime = x.tableauAnimeRecupere;

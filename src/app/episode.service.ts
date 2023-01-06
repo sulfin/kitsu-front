@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable} from 'rxjs';
 import { EpisodeRecupere } from './episode-recupere';
 import { IncludedEpisode } from './included-episode';
-import { LinksEpisode } from './links-episode';
+import { Links } from './links';
 import { RecupererDataEpisode } from './recuperer-data-episode';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class EpisodeService {
         let episodeRecupere: RecupererDataEpisode;
         let tabEpisodeRecupere :  Array<EpisodeRecupere> = new Array<EpisodeRecupere>();
         let tabIncluded :  Array<IncludedEpisode> = new Array<IncludedEpisode>();
-        let links: LinksEpisode;
+        let links: Links;
 
         let tabDataEpisode : any[]= obj["data"];
         let tabDataIncluded : any[] = obj["included"]

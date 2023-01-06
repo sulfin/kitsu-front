@@ -1,4 +1,4 @@
-export interface LinksEpisode {
+export interface Links {
 
   first : string,
   prev : string | null,
