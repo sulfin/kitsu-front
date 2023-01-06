@@ -9,3 +9,12 @@
 
 }
 
+p{
+  overflow: hidden;
+  height: 5rem;
+}
+
+.txt{
+  text-overflow: ellipsis !important;
+}
+
