@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ItemAccueil} from "../item-accueil";
 
 @Component({
   selector: 'app-carousel-item',
@@ -7,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CarouselItemComponent implements OnInit {
 
-  @Input() episode: any
+  @Input() episode!: ItemAccueil
 
   constructor() { }
 
