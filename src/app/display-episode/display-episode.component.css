@@ -17,3 +17,7 @@
 .d-block{
   color: var(--md-sys-color-on-surface-variant-dark);
 }
+
+p{
+  width: 40px;
+}
