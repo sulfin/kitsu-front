@@ -13,7 +13,6 @@ const routes: Routes = [
   { path: 'sorties', component: PageSortiesComponent },
   { path: 'anime', component: PageAnimeComponent },
   { path: 'anime/:id', component: AnimeComponent},
-  { path: 'personnages', component: PagePersonnagesComponent },
   { path: 'saisons', component: PageSaisonComponent },
   { path: 'about', component: PageAboutComponent }
 ];
