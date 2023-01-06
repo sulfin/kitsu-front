@@ -1,1 +1,28 @@
-<p>page-anime works!</p>
+<form (ngSubmit)="submit()" [formGroup]="searchForm">
+  <div class="mb-3 mx-auto col-4">
+    <label for="rechercherAnimeNom" class="form-label">Entrer un nom</label>
+    <input formControlName="animeName" type="text" class="form-control" id="rechercherAnimeNom">
+  </div>
+  <div  class="mb-3 mx-auto col-1">
+    <button [disabled]="searchForm.invalid" type="submit" class="btn btn-primary">Rechercher</button>
+  </div>
+</form>
+
+
+<ng-container *ngIf="displayedAnime.length > 0">
+  <ng-container *ngFor="let item of displayedAnime">
+
+    <app-display-anime [anime]="item"></app-display-anime>
+  </ng-container>
+</ng-container>
+
+<nav>
+  <nav>
+    <ul class="pagination d-flex justify-content-center">
+      <li class="page-item "><a class="page-link" (click)="getFirstPage(this.optionRechercherNom)">First Page</a></li>
+      <li class="page-item {{desactiverBoutonPrec}}"><a class="page-link"  (click)="pagePrecedente()">&lsaquo;</a></li>
+      <li class="page-item"><a class="page-link">{{numeroPage}}</a></li>
+      <li class="page-item {{desactiverBoutonSuiv}} "><a class="page-link" (click)="pageSuivante()">&rsaquo;</a></li>
+      <li class="page-item "><a class="page-link" (click)="getLastPage()">Last Page</a></li>
+    </ul>
+  </nav>

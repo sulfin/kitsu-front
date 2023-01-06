@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {Anime} from "./anime";
+import { LinksEpisode } from './links-episode';
+import { RecupererDataAnime } from './recuperer-data-anime';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +17,43 @@ export class AnimeService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAnimes(url: string, option: string): Observable<any> {
-    return this.httpClient.get(url + option)
+  getAnimes(url: string, option: string): Observable<RecupererDataAnime> {
+    return this.httpClient.get<any[]>(url + option).pipe(
+      map((obj : any) =>{
+
+        let AnimeRecupere : RecupererDataAnime;
+        let tabAnimeRecupere :  Array<Anime> = new Array<Anime>();
+        let links: LinksEpisode;
+
+        let tabDataAnime : any[]= obj["data"];
+
+        tabDataAnime.forEach(element => {  //On va parcourir tout le tableau data pour pusher dans notre tableau de tabAnimeRecupere
+
+          tabAnimeRecupere.push(this.anyToAnime(element))
+
+      }
+    );
+
+    links = {               //Pour avoir les liens des pages suivantes, precedentes
+      first : obj.links.first,
+      prev : obj.links.prev? obj.links.prev : null,
+      next : obj.links.next? obj.links.next : null,
+      last : obj.links.last,
+      nbTotalEpisode : obj.meta.count
+    };
+
+    AnimeRecupere = {  //Creation de l'objet qui contient la liste des animés ainsi que les meta donnees comme page suivante de l'api
+
+      tableauAnimeRecupere : tabAnimeRecupere,
+      links : links
+    }
+
+    return AnimeRecupere;
   }
+  )
+  )
+  }
+
 
   getAnimeSaison(saison: string, annee: string): Observable<Anime[]> {
     return this.getAnimes(this.animeURL, `?filter[season]=${saison}&filter[seasonYear]=${annee}`).pipe(

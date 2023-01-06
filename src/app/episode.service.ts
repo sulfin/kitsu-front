@@ -38,7 +38,7 @@ export class EpisodeService {
 
             idAnime : element.relationships.media.data.id,
             dateSortie : element.attributes.airdate,
-            duree : element.attributes.length,
+            duree : element.attributes.length? element.attributes.length+'\'' : '   ' ,
             numeroEpisode : element.attributes.number,
             numeroSaison : element.attributes.seasonNumber,
             nom : element.attributes.canonicalTitle,

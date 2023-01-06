@@ -20,6 +20,7 @@ import { AnimeResumeComponent } from './anime-resume/anime-resume.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { CarteAnimeSaisonComponent } from './carte-anime-saison/carte-anime-saison.component';
 import { CategoriesSaisonComponent } from './categories-saison/categories-saison.component';
+import { DisplayAnimeComponent } from './display-anime/display-anime.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CategoriesSaisonComponent } from './categories-saison/categories-saison
     MenuDeroulantsComponent,
     AnimeResumeComponent,
     CarteAnimeSaisonComponent,
-    CategoriesSaisonComponent
+    CategoriesSaisonComponent,
+    DisplayAnimeComponent
   ],
   imports: [
     BrowserModule,
