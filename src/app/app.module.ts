@@ -15,6 +15,8 @@ import { PageAboutComponent } from './page-about/page-about.component';
 import { FooterComponent } from './footer/footer.component';
 import { CarouselAccueilComponent } from './carousel-accueil/carousel-accueil.component';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
+import { AnimeComponent } from './anime/anime.component';
+import { PersonnageComponent } from './personnage/personnage.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { CarouselItemComponent } from './carousel-item/carousel-item.component';
     FooterComponent,
     AppComponent,
     CarouselAccueilComponent,
-    CarouselItemComponent
+    CarouselItemComponent,
+    AnimeComponent,
+    PersonnageComponent,
   ],
   imports: [
     BrowserModule,

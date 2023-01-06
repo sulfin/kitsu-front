@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {Anime} from "./anime";
+import {AnimeDetail} from "./anime-detail";
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +22,17 @@ export class AnimeService {
 
   getAnimeSaison(saison: string, annee: string): Observable<Anime[]> {
     return this.getAnimes(this.animeURL, `?filter[season]=${saison}&filter[seasonYear]=${annee}`).pipe(
-      map<any, Anime[]>((data) => { return data.map((val: any) => this.anyToAnime(val))})
+      map<any, Anime[]>((data) => {
+        return data.map((val: any) => this.anyToAnime(val))
+      })
     )
   }
 
   getAnimePopulaire(): Observable<Anime[]> {
     return this.getAnimes(this.trendingURL, "").pipe(
-      map<any, Anime[]>((data) => { return data.data.map((val: any) => this.anyToAnime(val))})
+      map<any, Anime[]>((data) => {
+        return data.data.map((val: any) => this.anyToAnime(val))
+      })
     )
   }
 
@@ -51,8 +56,45 @@ export class AnimeService {
         ja_jp: data.attributes.titles.ja_jp,
       },
       youtubeVideoId: data.attributes.youtubeVideoId,
-      relationships: null,
+      relationships: data.relationships,
     }
+  }
+
+  getAnimeDetail(id: string): Observable<AnimeDetail> {
+    return this.httpClient.get(`${this.animeURL}/${id}?include=categories,characters.character,episodes`).pipe(
+      map((data: any) => {
+        let anime = this.anyToAnime(data.data)
+        return {
+          anime: anime,
+          categories: anime.relationships.categories.data.map((cat: any) => {
+            // recupération de la catégorie dans les included
+            return data.included.find((incl: any) => incl.type === cat.type && incl.id === cat.id).attributes.title
+          }),
+          personnages: anime.relationships.characters.data.map((mchar: any) => {
+            let mediaCharacter = data.included.find((incl: any) => incl.type === mchar.type && incl.id === mchar.id)
+            let char = mediaCharacter.relationships.character.data
+            let character = data.included.find((incl: any) => incl.type === char.type && incl.id === char.id)
+            return {
+              role: mediaCharacter.attributes.role,
+              nom: character.attributes.canonicalName,
+              image: {
+                original: character.attributes.image.original,
+                medium: character.attributes.image.medium,
+                small: character.attributes.image.small
+              }
+            }
+          }),
+          episodes: anime.relationships.episodes.data.map((ep: any) => {
+            let episode = data.included.find((incl: any) => incl.type === ep.type && incl.id === ep.id)
+            return {
+              num: episode.attributes.number,
+              id: ep.id,
+              titre: episode.attributes.canonicalTitle,
+            }
+          })
+        }
+      })
+    )
   }
 
 }
