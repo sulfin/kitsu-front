@@ -1,8 +1,9 @@
 .card{
   width: 18rem;
+  background-color: var(--md-sys-color-primary-dark);
+  color: var(--md-sys-color-on-primary-dark);
 
-
-
+  border-width: 0px;
 }
 
 img{

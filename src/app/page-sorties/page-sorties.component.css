@@ -1,0 +1,7 @@
+.pagination{
+
+  --bs-pagination-color: var(--md-sys-color-surface-variant-dark);
+  --bs-pagination-bg: var(--md-sys-color-on-surface-variant-dark);
+  --bs-pagination-disabled-color: var(--md-sys-color-surface-variant-dark);
+  --bs-pagination-disabled-bg: var(--md-sys-color-outline-dark);
+}
