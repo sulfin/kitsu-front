@@ -20,7 +20,7 @@ export class AnimeService {
 
   getAnimeSaison(saison: string, annee: string): Observable<Anime[]> {
     return this.getAnimes(`?filter[season]=${saison}&filter[seasonYear]=${annee}`).pipe(
-      map<any, Anime[]>((data) => { return data.map((val: any) => this.anyToAnime(val))})
+      map<any, Anime[]>((data) => { return data.data.map((val: any) => this.anyToAnime(val))})
     )
   }
 

@@ -1,11 +1,9 @@
-<p>anime-resume works!</p>
-<!--<div *ngfor="let anime of DisplayAnime">-->
-  <div class="card"  style="width: 18rem;">
-    <img src="assets/images.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-<!--</div> -->
+
+<div >
+  <app-categories-saison [categorie]="'ANIME :'" [liste]="displayTV" ></app-categories-saison>
+  <app-categories-saison [categorie]="'FILM :'" [liste]="displayfilm" ></app-categories-saison>
+  <app-categories-saison [categorie]="'OAV :'" [liste]="displayOAV" ></app-categories-saison>
+  <app-categories-saison [categorie]="'ONA :'" [liste]="displayONA" ></app-categories-saison>
+  <app-categories-saison [categorie]="'MUSIC :'" [liste]="displaymusic" ></app-categories-saison>
+  <app-categories-saison [categorie]="'SPECIAL :'" [liste]="displayspecial" ></app-categories-saison>
+</div>

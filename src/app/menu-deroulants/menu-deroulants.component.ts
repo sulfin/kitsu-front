@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {range} from "rxjs";
 import {FormControl, FormGroup} from "@angular/forms";
 import {SaisonsService} from "../saisons.service"
@@ -18,7 +18,7 @@ export class MenuDeroulantsComponent implements OnInit {
   AnneeCtrl: FormControl<number>
 
 
-  constructor() {
+  constructor(private saisonservice: SaisonsService) {
     rangeannee.subscribe(
       (x) => {
         this.DisplayAnnee.push(x)
@@ -34,19 +34,20 @@ export class MenuDeroulantsComponent implements OnInit {
 
 
 
-    this.SaisonAnneeForm.valueChanges.subscribe(value => {
+    this.SaisonAnneeForm.valueChanges.subscribe(_ => {
       this.submit()
     })
 
   }
 
   ngOnInit(): void {
-
+    this.saisonservice.changesaison(this.SaisonCtrl.value, this.AnneeCtrl.value)
 
   }
   submit(){
     console.log(this.SaisonCtrl.value)
     console.log(this.AnneeCtrl.value)
+    this.saisonservice.changesaison(this.SaisonCtrl.value, this.AnneeCtrl.value)
   }
 
 }

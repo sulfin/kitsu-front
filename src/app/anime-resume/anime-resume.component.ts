@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {range} from "rxjs";
+import {Component, OnInit} from '@angular/core';
+import {Anime} from "../anime";
+import {SaisonsService} from "../saisons.service";
 
 //const NbAnime = range(0, 30)
 @Component({
@@ -9,16 +10,33 @@ import {range} from "rxjs";
 })
 export class AnimeResumeComponent implements OnInit {
 
-  //DisplayAnime: Array<number> = new Array<number>()
-  constructor() {
+  displayanime: Anime[] = []
+  displayfilm:Anime[] = []
+  displayTV:Anime[] = []
+  displayOAV: Anime[] = []
+  displayONA: Anime[] = []
+  displaymusic: Anime[] = []
+  displayspecial: Anime[] = []
+  constructor( private saisonservice: SaisonsService) {
   }
 
   ngOnInit(): void {
-   /* NbAnime.subscribe(
-      (x) => {
-        this.DisplayAnime.push(x)
+
+    this.saisonservice.onlistchange().subscribe(
+
+      listeAnime => {this.displayanime=listeAnime
+
+        this.displayTV = this.displayanime.filter(anime => anime.subtype === "TV");
+        this.displayfilm = this.displayanime.filter(anime => anime.subtype === "movie");
+        this.displayOAV = this.displayanime.filter(anime => anime.subtype === "OVA");
+        this.displayONA = this.displayanime.filter(anime => anime.subtype === "ONA");
+        this.displaymusic = this.displayanime.filter(anime => anime.subtype === "music");
+        this.displayspecial = this.displayanime.filter(anime => anime.subtype === "special");
+
       }
-    )*/
+
+    )
+
   }
 
 }

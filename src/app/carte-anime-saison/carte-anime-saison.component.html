@@ -1,0 +1,13 @@
+<div class="col align-items-center justify-content-center d-flex" >
+
+    <a class="card text-black text-decoration-none"  [routerLink]="'/anime/'+anime.id">
+      <img [src]="anime.posterImage" class="card-img-top" alt="..." >
+      <div class="card-body">
+        <h5 class="card-title">{{anime.canonicalTitle}}</h5>
+
+        <p class="card-text, txt">{{anime.description}}</p>
+
+      </div>
+    </a>
+
+</div>

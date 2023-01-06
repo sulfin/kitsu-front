@@ -18,6 +18,8 @@ import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 import { MenuDeroulantsComponent } from './menu-deroulants/menu-deroulants.component';
 import { AnimeResumeComponent } from './anime-resume/anime-resume.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { CarteAnimeSaisonComponent } from './carte-anime-saison/carte-anime-saison.component';
+import { CategoriesSaisonComponent } from './categories-saison/categories-saison.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     CarouselItemComponent,
     FooterComponent,
     MenuDeroulantsComponent,
-    AnimeResumeComponent
+    AnimeResumeComponent,
+    CarteAnimeSaisonComponent,
+    CategoriesSaisonComponent
   ],
   imports: [
     BrowserModule,
