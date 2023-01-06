@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EpisodeAffiche } from '../episode-affiche';
 import { EpisodeService } from '../episode.service';
-import { LinksEpisode } from '../links-episode';
+import { Links } from '../links';
 import { RecupererDataEpisode } from '../recuperer-data-episode';
 
 @Component({
@@ -15,7 +15,7 @@ export class PageSortiesComponent implements OnInit {
 
   dataEpisode! : RecupererDataEpisode;
 
-  links! : LinksEpisode;
+  links! : Links;
 
   numeroPage : number =0;
 

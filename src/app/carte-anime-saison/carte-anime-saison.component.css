@@ -1,0 +1,33 @@
+.card{
+  width: 18rem;
+
+
+
+}
+
+img{
+  height: 200px;
+  object-fit: cover;
+}
+
+p{
+
+  overflow: hidden;
+  height: 10rem;
+}
+
+
+h5{
+
+  overflow: hidden;
+}
+
+.txt{
+  text-overflow: ellipsis !important;
+
+}
+
+.card-title{
+  white-space: nowrap;
+  text-overflow: ellipsis !important;
+}

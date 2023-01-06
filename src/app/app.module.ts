@@ -17,6 +17,12 @@ import { CarouselAccueilComponent } from './carousel-accueil/carousel-accueil.co
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 import { AnimeComponent } from './anime/anime.component';
 import { PersonnageComponent } from './personnage/personnage.component';
+import { MenuDeroulantsComponent } from './menu-deroulants/menu-deroulants.component';
+import { AnimeResumeComponent } from './anime-resume/anime-resume.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import { CarteAnimeSaisonComponent } from './carte-anime-saison/carte-anime-saison.component';
+import { CategoriesSaisonComponent } from './categories-saison/categories-saison.component';
+import { DisplayAnimeComponent } from './display-anime/display-anime.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +41,20 @@ import { PersonnageComponent } from './personnage/personnage.component';
     CarouselItemComponent,
     AnimeComponent,
     PersonnageComponent,
+    CarouselItemComponent,
+    FooterComponent,
+    MenuDeroulantsComponent,
+    AnimeResumeComponent,
+    CarteAnimeSaisonComponent,
+    CategoriesSaisonComponent,
+    DisplayAnimeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
