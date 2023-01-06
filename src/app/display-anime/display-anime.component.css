@@ -1,0 +1,21 @@
+.carte{
+  background-color: var(--md-sys-color-surface-variant-dark);
+  color: var(--md-sys-color-on-surface-variant-dark);
+
+  border-width: 0px;
+
+}
+
+.badge{
+  background-color: var(--md-sys-color-surface-variant-dark);
+}
+
+.titre{
+  color: var(--md-sys-color-on-surface-variant-dark);
+}
+
+.d-block{
+  color: var(--md-sys-color-on-surface-variant-dark);
+  background-color: var(--md-sys-color-surface-variant-dark);
+}
+

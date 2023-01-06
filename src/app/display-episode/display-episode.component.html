@@ -1,24 +1,24 @@
-<div class= "d-flex align-items-center text-center justify-content-center" style="height: 82px">
+<div class= "d-flex align-items-center text-center justify-content-center " style="height: 82px">
   <div class="flex-shrink-0 position-relative">
 
-    <img [src]=episode.image width="120px" height="80px">
-    <span class="badge position-absolute  bottom-0 end-0 bg-danger text-white"> {{episode.type}}</span>
+    <img [src]=episode.image width="120px" height="80px" alt="...">
+    <span class="badge position-absolute  bottom-0 end-0 carte"> {{episode.type}}</span>
 
    </div>
 
 
-   <div class="col-1 bg-dark h-100 text-danger border border-light mb-0 ">
+   <div class="col-0.5 h-100  border mb-0 carte" >
     <p class="m-3" >{{episode.duree}}</p>
   </div>
 
-  <div class="col-1 bg-dark h-100 text-danger border border-light mb-0 ">
+  <div class="col-1 h-100  border  mb-0 carte">
     <span class="d-block p-2 ">{{episode.dateSortie}} </span>
     <span class="d-block p-2 ">S{{episode.numeroSaison}} E{{episode.numeroEpisode}} </span>
 
   </div>
 
-  <div class="col-5 bg-dark h-100 text-white border border-light mb-0 " >
-    <span class="d-block p-2 text-warning">{{episode.nomAnime}}</span>
+  <div class="col-5 h-100  border  mb-0 carte" >
+    <span class="d-block p-2 titre">{{episode.nomAnime}}</span>
     <span class="d-block p-2">{{episode.nom}}</span>
   </div>
 
