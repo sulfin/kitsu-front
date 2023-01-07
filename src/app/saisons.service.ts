@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable, Subject, switchMap} from "rxjs";
 import {AnimeService} from "./anime.service";
-import {Anime} from "./anime";
 import { RecupererDataAnime } from './recuperer-data-anime';
 
 
