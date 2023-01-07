@@ -59,12 +59,41 @@ export class AnimeService {
     return this.httpClient.get(url + option)
   }
 
-  getAnimeSaison(saison: string, annee: string): Observable<Anime[]> {
+  getAnimeSaison(saison: string, annee: string): Observable<RecupererDataAnime> {
     return this.getAnimes(this.animeURL, `?filter[season]=${saison}&filter[seasonYear]=${annee}`).pipe(
-      map<any, Anime[]>((data) => {
-        return data.data.map((val: any) => this.anyToAnime(val))
-      })
-    )
+      map((obj : any) =>{
+
+        let AnimeRecupere : RecupererDataAnime;
+        let tabAnimeRecupere :  Array<Anime> = new Array<Anime>();
+        let links: Links;
+
+        let tabDataAnime : any[]= obj["data"];
+
+        tabDataAnime.forEach(element => {  //On va parcourir tout le tableau data pour pusher dans notre tableau de tabAnimeRecupere
+
+          tabAnimeRecupere.push(this.anyToAnime(element))
+
+      }
+    );
+
+    links = {               //Pour avoir les liens des pages suivantes, precedentes
+      first : obj.links.first,
+      prev : obj.links.prev? obj.links.prev : null,
+      next : obj.links.next? obj.links.next : null,
+      last : obj.links.last,
+      nbTotalEpisode : obj.meta.count
+    };
+
+    AnimeRecupere = {  //Creation de l'objet qui contient la liste des animés ainsi que les meta donnees comme page suivante de l'api
+
+      tableauAnimeRecupere : tabAnimeRecupere,
+      links : links
+    }
+
+    return AnimeRecupere;
+  }
+  )
+  )
   }
 
   getAnimePopulaire(): Observable<Anime[]> {

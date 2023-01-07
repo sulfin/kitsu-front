@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject, switchMap} from "rxjs";
 import {AnimeService} from "./anime.service";
 import {Anime} from "./anime";
+import { RecupererDataAnime } from './recuperer-data-anime';
 
 
 @Injectable({
@@ -14,7 +15,9 @@ import {Anime} from "./anime";
 export class SaisonsService {
 
   protected queue_anime: BehaviorSubject<string> = new BehaviorSubject<string>('valeur')
-  protected sujet_anime_saison: Subject<Anime[]> = new Subject<Anime[]>()
+  protected sujet_anime_saison: Subject<RecupererDataAnime> = new Subject<RecupererDataAnime>()
+
+  tabAnime :  Array<RecupererDataAnime[]> = new Array<RecupererDataAnime[]>();
 
   constructor(private http: HttpClient,
               private animeservice: AnimeService) { }
@@ -27,14 +30,15 @@ export class SaisonsService {
     this.queue_anime.next(descripteur)
   }
 
-  changesaison(saison: string , annee: number){
+  changesaison(saison: string , annee: number) {
     this.animeservice.getAnimeSaison(saison, annee.toString()).subscribe(
       data => {
         this.sujet_anime_saison.next(data)
         console.log(data)
       }
     )}
-  onlistchange(): Observable<Anime[]>{
+
+  onlistchange(): Observable<RecupererDataAnime>{
     return this.sujet_anime_saison.asObservable()
   }
 
