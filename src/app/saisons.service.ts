@@ -17,7 +17,6 @@ export class SaisonsService {
   protected queue_anime: BehaviorSubject<string> = new BehaviorSubject<string>('valeur')
   protected sujet_anime_saison: Subject<RecupererDataAnime> = new Subject<RecupererDataAnime>()
 
-  tabAnime :  Array<RecupererDataAnime[]> = new Array<RecupererDataAnime[]>();
 
   constructor(private http: HttpClient,
               private animeservice: AnimeService) { }
