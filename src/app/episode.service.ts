@@ -22,7 +22,7 @@ export class EpisodeService {
 
   getDataEpisode(url : string) : Observable<RecupererDataEpisode> {
 
-    return this.httpClient.get<any[]>(url).pipe(
+    return this.httpClient.get<RecupererDataEpisode>(url).pipe(
       map((obj : any) =>{
         let episodeRecupere: RecupererDataEpisode;
         let tabEpisodeRecupere :  Array<EpisodeRecupere> = new Array<EpisodeRecupere>();

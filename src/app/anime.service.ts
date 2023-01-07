@@ -19,7 +19,7 @@ export class AnimeService {
   }
 
   getFullAnimes(url: string, option: string): Observable<RecupererDataAnime> {
-    return this.httpClient.get<any[]>(url + option).pipe(
+    return this.httpClient.get<RecupererDataAnime>(url + option).pipe(
       map((obj : any) =>{
 
         let AnimeRecupere : RecupererDataAnime;
