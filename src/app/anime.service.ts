@@ -60,7 +60,7 @@ export class AnimeService {
   }
 
   getAnimeSaison(saison: string, annee: string): Observable<RecupererDataAnime> {
-    return this.getAnimes(this.animeURL, `?filter[season]=${saison}&filter[seasonYear]=${annee}`).pipe(
+    return this.getAnimes(this.animeURL, `?page[limit]=20&filter[season]=${saison}&filter[seasonYear]=${annee}`).pipe(
       map((obj : any) =>{
 
         let AnimeRecupere : RecupererDataAnime;
