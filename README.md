@@ -1,27 +1,30 @@
 # KitsuFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
+## Equipe :
 
-## Development server
+- Angileri Lorenzo
+- Benet François
+- Tuveny Sylvain
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Description :
 
-## Code scaffolding
+Ce projet recrée les fonctionnalités principales d'un site de centralisation de tous ce qui porte sur la culture anime japonaise (actuellement que les anime).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Fonctionnalités :
 
-## Build
+- Page accueil avec les derniers épisodes sorties et les animés populaire
+- Page sorties qui affiches une liste paginée des derniers épisodes sorties
+- Page anime qui affiche la liste d'anime avec une barre de recherche
+- Page saisons permettant de filtrer les contenus sortie par année et saison
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Problèmes connus
 
-## Running unit tests
+- Sur certain anime, la page de détail ne marche pas (ex: One Piece, Nuruto, ...)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Ressources :
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- [Documentation Angular](https://angular.io/docs)
+- [Documentation Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+- [MDN](https://developer.mozilla.org/fr/)
+- [API kitsu](https://kitsu.docs.apiary.io/)
+- [material.io](https://m3.material.io/) Pour les couleurs
