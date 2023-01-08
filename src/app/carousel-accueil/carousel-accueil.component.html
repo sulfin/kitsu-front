@@ -1,0 +1,14 @@
+<div class="d-flex flex-column gap-3">
+  <h2>{{name}}</h2>
+  <div class="d-flex flex-row gap-2">
+    <button class="btn btn-outline-dark" [disabled]="rbutton_disable" (click)="prevPage()">&lt;</button>
+    <div class="d-flex flex-row w-100 overflow-hidden justify-content-between">
+      <app-carousel-item *ngFor="let episode of episodes_cur" [episode]="episode"
+                         class="episode-card h-100"></app-carousel-item>
+    </div>
+    <button class="btn btn-outline-dark" [disabled]="lbutton_disable" (click)="nextPage()">&gt;</button>
+  </div>
+  <div class="d-flex flex-row flex-row-reverse">
+    <a class="btn btn-info me-3" [href]="more_url">Voir plus</a>
+  </div>
+</div>

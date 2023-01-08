@@ -1,0 +1,11 @@
+app-carousel-item{
+  --card-number: 5;
+  --space-between: 10px;
+  width: calc(100% / var(--card-number) - 2 * var(--space-between));
+}
+
+.btn{
+  background-color: var(--md-sys-color-surface-variant-dark);
+  color: var(--md-sys-color-on-surface-variant-dark);
+  border-width: 0px;
+}

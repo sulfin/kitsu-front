@@ -1,0 +1,10 @@
+<div class="card h-100">
+  <a class="d-flex flex-column text-black text-decoration-none h-100" [routerLink]="episode.lien">
+    <img class="card-img-top cover-thumbnail" [src]="episode.image"
+         [alt]="episode.titre" height="220">
+    <div class="card-body">
+      <h5 class="card-title txt">{{episode.titre}}</h5>
+      <p class="card-text txt">{{episode.sous_titre}}</p>
+    </div>
+  </a>
+</div>

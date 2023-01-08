@@ -1,0 +1,6 @@
+.form-select{
+  background-color: var(--md-sys-color-surface-variant-dark);
+  color: var(--md-sys-color-on-surface-variant-dark);
+  border-width: 0px;
+
+}

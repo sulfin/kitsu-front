@@ -1,0 +1,23 @@
+.pagination{
+
+  --bs-pagination-color: var(--md-sys-color-surface-variant-dark);
+  --bs-pagination-bg: var(--md-sys-color-on-surface-variant-dark);
+  --bs-pagination-disabled-color: var(--md-sys-color-surface-variant-dark);
+  --bs-pagination-disabled-bg: var(--md-sys-color-outline-dark);
+}
+
+.form-label{
+
+  color: var(--md-sys-color-on-surface-variant-dark);
+}
+.form-control{
+  background-color: var(--md-sys-color-surface-variant-dark);
+  color: var(--md-sys-color-on-surface-variant-dark);
+}
+
+.btn{
+  background-color: var(--md-sys-color-surface-variant-dark);
+  color: var(--md-sys-color-on-surface-variant-dark);
+  --bs-btn-active-bg: var(--md-sys-color-surface-dark);
+  border-width: 0;
+}

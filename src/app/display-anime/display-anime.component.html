@@ -1,0 +1,14 @@
+<div class= "boite d-flex align-items-center text-center justify-content-center" style="height: 82px">
+  <div class="flex-shrink-0 position-relative">
+
+    <img [src]=anime.posterImage width="120px" height="80px" alt="...">
+    <span class="badge position-absolute  bottom-0 end-0 "> {{anime.subtype}}</span>
+
+   </div>
+
+
+  <a class="col-5 h-100 border mb-0 text-decoration-none" routerLink="/anime/{{anime.id}}">
+    <span class="d-block h-100 p-2 ">{{anime.canonicalTitle}}</span>
+  </a>
+
+</div>

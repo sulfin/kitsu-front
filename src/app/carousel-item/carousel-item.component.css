@@ -1,0 +1,20 @@
+.cover-thumbnail {
+  object-fit: cover;
+}
+.card{
+  background-color: var(--md-sys-color-primary-dark);
+  color: var(--md-sys-color-on-primary-dark);
+
+  border-width: 0px;
+
+}
+
+p{
+  overflow: hidden;
+  height: 5rem;
+}
+
+.txt{
+  text-overflow: ellipsis !important;
+}
+
