@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import {Anime} from "../anime";
 import { AnimeService } from '../anime.service';
 import { Links } from '../links';

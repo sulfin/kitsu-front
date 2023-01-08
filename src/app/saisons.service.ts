@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Observable, Subject, switchMap} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {AnimeService} from "./anime.service";
-import {Anime} from "./anime";
 import { RecupererDataAnime } from './recuperer-data-anime';
 
 
@@ -17,7 +16,6 @@ export class SaisonsService {
   protected queue_anime: BehaviorSubject<string> = new BehaviorSubject<string>('valeur')
   protected sujet_anime_saison: Subject<RecupererDataAnime> = new Subject<RecupererDataAnime>()
 
-  tabAnime :  Array<RecupererDataAnime[]> = new Array<RecupererDataAnime[]>();
 
   constructor(private http: HttpClient,
               private animeservice: AnimeService) { }
